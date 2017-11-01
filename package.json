@@ -1,0 +1,19 @@
+{
+  "name": "node_threethousand",
+  "version": "1.0.0",
+  "description": "learning english word back end",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon server.js"
+  },
+  "author": "mmikael_18@hotmail.com",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.2",
+    "mongoose": "^4.12.6"
+  },
+  "devDependencies": {
+    "nodemon": "^1.12.1"
+  }
+}
