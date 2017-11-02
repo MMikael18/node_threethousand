@@ -4,11 +4,7 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 var WordsSchema   = new Schema({
-    name: String,
-    modified_date: {
-        type: Date,
-        default: Date.now
-    },
+    name: String
 })
 
 module.exports = mongoose.model('Word', WordsSchema)
