@@ -1,7 +1,7 @@
 'use strict';
 
 const mongoose = require('mongoose')
-mongoose.connect('localhost', 'gettingstarted');
+
 const Word = mongoose.model('Word')
 
 exports.all = function(req, res) {
@@ -16,13 +16,24 @@ exports.create = function(req, res) {
   console.log('Create!')
   console.log(req.body.name)
   var new_word = new Word(req.body)
-  new_word.name = req.body.name
+  new_word.word = req.body.word
 
-  new_word.save(function(err, word) {
+  Word.findOne( { 'word': req.body.word }, function(err, word) {
     if (err)
-      res.send(err)
-    res.json(word)
+      return res.send(err)
+    
+    if( word != null) {
+      res.json({ message: 'Word all ready exsist!'})
+      return true
+    } else {
+      new_word.save(function(err, word) {
+        if (err)
+          res.send(err)
+        res.json(word)
+      })
+    }
   })
+  
 }
 
 exports.get = function(req, res) {
@@ -45,6 +56,13 @@ exports.delete = function(req, res) {
   }, function(err, word) {
     if (err)
       res.send(err)
-    res.json({ message: 'Word successfully deleted' })
+    res.json({ message: 'Word successfully deleted: ' + word })
+  })
+}
+exports.deleteAll = function(req, res) {
+  Word.remove({}, function(err, word) {
+    if (err)
+      res.send(err)
+    res.json({ message: 'All words successfully deleted'})
   })
 }

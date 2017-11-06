@@ -16,19 +16,22 @@ app.use(bodyParser.json());
 
 var mongoose   = require('mongoose')      
 mongoose.connect('localhost', 'node_threethousand');
-// mongoose.Promise = global.Promise
-// mongoose.createConnection('mongodb://localhost/node_threethousand')
-mongoose.connection.on('connected', function () {  
-  console.log('Mongoose default connection open to');
-}); 
-mongoose.connection.on('error',function (err) {  
-  console.log('Mongoose default connection error: ' + err);
-});
+mongoose.Promise = global.Promise
 
-
+let mongoDB = mongoose.createConnection('mongodb://localhost/node_threethousand',{
+      useMongoClient: true,
+      promiseLibrary: global.Promise // Deprecation issue again
+    })
+mongoDB
+.then(db => {
+    console.log('Mongodb has been connected')
+})
+.catch(err => {
+    console.log('Error while trying to connect with mongodb')
+    throw err
+})
 
 const router = express.Router()
-
 
 /***********************/
 //    Middleware
@@ -58,6 +61,7 @@ router.post('/words', WordC.create)
 router.get   ('/words/:wordId', WordC.get)
 router.put   ('/words/:wordId', WordC.update)
 router.delete('/words/:wordId', WordC.delete)
+router.delete('/remove_all', WordC.deleteAll)
 //
 app.use('/api', router)
 
