@@ -5,8 +5,8 @@ const app = express()
 
 const bodyParser = require('body-parser');
 
-const WordM = require('./models/wordsModel')
-const WordC = require('./controllers/wordsController')
+const WordM = require('./server/models/wordsModel')
+const WordC = require('./server/controllers/wordsController')
 
 // configure app to use bodyParser()
 // this will let us get the data from a POST
@@ -15,7 +15,7 @@ app.use(bodyParser.json());
 
 
 var mongoose   = require('mongoose')      
-mongoose.connect('localhost', 'node_threethousand');
+//mongoose.connect('localhost', 'node_threethousand');
 mongoose.Promise = global.Promise
 
 let mongoDB = mongoose.createConnection('mongodb://localhost/node_threethousand',{
@@ -51,7 +51,7 @@ router.use(function(req, res, next) {
 
 router.get('/', function (req, res) {
   //res.send('Hello World!')
-  res.json({ message: 'welcome to our api!' })
+  res.json({ message: 'welcome to our api! ' })
 })
 // 
 router.get ('/words', WordC.all)
