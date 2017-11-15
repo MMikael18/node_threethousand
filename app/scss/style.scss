@@ -1,9 +1,15 @@
-body{
+html, body{
+    margin: 0;
+    padding: 0;
     background-color: white;
-    #app{
-        color: green; 
+    font-size: 1vw;
+    #app{        
+        #AppFrame{
+            
+        }
     }
     span{
-        background-image: url("/img/icon_test.png");
+        /*background-image: url("/img/icon_test.png");*/
     }
+    
 }

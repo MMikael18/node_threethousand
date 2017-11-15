@@ -64,23 +64,28 @@ var dependencies = [
 	'react',
   'react-dom'
 ]
+var js = {
+  src         : dir.src + 'app.jsx',
+  watch       : dir.src + '**/*',
+  build       : dir.build,  
+};
 gulp.task('react', function () {
   return browserify({
       require: dependencies,
-      entries: dir.src + "app.jsx",
+      entries: js.src,
       debug: true
     })
     .transform("babelify", {presets: ["es2015", "react"]})
     .bundle()
     .pipe(source('app.js'))
-    .pipe(gulp.dest(dir.build))
+    .pipe(gulp.dest(js.build))
  });
 
 // watch for file changes
 gulp.task('watch', () => {    
     gulp.watch(images.src, ['images'])   // image changes 
     gulp.watch(css.watch, ['css'])       // CSS changes
-    gulp.watch(dir.src, ['react'])       // React
+    gulp.watch(js.watch, ['react'])      // React
 })
   
 // default task
