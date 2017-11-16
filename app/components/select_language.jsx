@@ -1,7 +1,7 @@
 import React from 'react';
 
 const divStyle = {
-    backgroundColor: 'green',
+    /*color: 'green',*/
 };
 
 class SelectLanguage extends React.Component {
@@ -20,10 +20,8 @@ class SelectLanguage extends React.Component {
 
     render(){
         return (
-            
             <form style={divStyle} className="selectLanguage">
-                <label>
-                    Select your language
+                <label>                    
                     <select value={this.state.value} onChange={this.handleChange}>
                         <option value="">Select your language</option>
                         <option value="fi">Finland</option>

@@ -9,6 +9,7 @@ gulp          = require('gulp'),
 gutil         = require('gulp-util'),
 newer         = require('gulp-newer'),
 sass          = require('gulp-sass'),
+concat        = require('gulp-concat'),
 postcss       = require('gulp-postcss'),
 imagemin      = require('gulp-imagemin'),
 
@@ -30,8 +31,8 @@ gulp.task('images', () => {
 
 // SCSS
 var css = {
-    src         : dir.src + 'scss/**/*.scss',
-    watch       : dir.src + 'scss/**/*',
+    src         : dir.src + '**/*.scss',
+    watch       : dir.src + '**/*',
     build       : dir.build,
     sassOpts: {
       outputStyle     : 'nested',
@@ -54,6 +55,7 @@ var css = {
 
 gulp.task('css', ['images'], () => {
   return gulp.src(css.src)
+    .pipe(concat('style.scss'))  
     .pipe(sass(css.sassOpts))    
     .pipe(postcss(css.processors))    
     .pipe(gulp.dest(css.build));

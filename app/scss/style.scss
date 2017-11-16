@@ -1,11 +1,17 @@
 html, body{
+    font-family: 'Roboto', sans-serif;
     margin: 0;
     padding: 0;
     background-color: white;
     font-size: 1vw;
     #app{        
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
         #AppFrame{
-            
+            padding: 15px;
+            border: solid 1px #ccc;
         }
     }
     span{
