@@ -12,34 +12,37 @@ class AppFrame extends React.Component {
     super();
     this.state = {
       usersLanguage: "",
-      wordData: "",
+      words: "",
     }
-    this.HandleUsersLanguage = this.HandleUsersLanguage.bind(this);
-    this.HandleResetLanguage = this.HandleResetLanguage.bind(this);
+    this.HandleUsersLanguage = this.HandleUsersLanguage.bind(this)
+    this.HandleResetLanguage = this.HandleResetLanguage.bind(this)
   }
 
   componentWillMount(){
-    let data = this.GetRestData();
+    
     //this.setState({links: data});
   }
 
-  GetRestData(){
-    fetch('/api', {
+  GetRestData(lang){
+    fetch('/api/words/'+lang, {
       method: 'get'
     }).then(res => res.json()).then(res => {
-      console.log(res);
+      //console.log(res)
+      //var d  = JSON.parse(res)
+      this.setState({words: res})
     }).catch(function(err) {
-        console.log(err);
-    });
+        console.log(err)
+    })
   }
 
   HandleUsersLanguage(value){
-    console.log(value);
-    this.setState({usersLanguage: value});
+    //console.log(value);
+    this.setState({usersLanguage: value})
+    this.GetRestData(value)
   }
 
   HandleResetLanguage(){
-    this.setState({usersLanguage: ""});
+    this.setState({usersLanguage: ""})
   }
 
   render() {
@@ -47,10 +50,10 @@ class AppFrame extends React.Component {
     if(this.state.usersLanguage.trim() != ""){
       content = <div>
                   <LinkBTN handleClick={this.HandleResetLanguage} title="Reset language" />
-                  <Game />
+                  <Game data={this.state.words}  />
                 </div>
     }
-    return (<div id="AppFrame">{content}</div>);
+    return (<div id="AppFrame">{content}</div>)
   }
 }
 

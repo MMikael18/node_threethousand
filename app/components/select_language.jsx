@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 
 const divStyle = {
     /*color: 'green',*/
@@ -7,15 +7,15 @@ const divStyle = {
 class SelectLanguage extends React.Component {
 
     constructor(props) {
-        super(props);
-        this.state = {value: ''};
-        this.handleChange = this.handleChange.bind(this);
+        super(props)
+        this.state = {value: ''}
+        this.handleChange = this.handleChange.bind(this)
     }
 
     handleChange(event) {
-        //console.log(event.target.value);
-        //this.setState({value: event.target.value});
-        this.props.onHandleUsersLanguage(event.target.value);
+        //console.log(event.target.value)
+        //this.setState({value: event.target.value})
+        this.props.onHandleUsersLanguage(event.target.value)
     }
 
     render(){
@@ -25,7 +25,7 @@ class SelectLanguage extends React.Component {
                     <select value={this.state.value} onChange={this.handleChange}>
                         <option value="">Select your language</option>
                         <option value="fi">Finland</option>
-                        <option value="se">Sweden</option>                
+                        <option value="sv">Sweden</option>                
                     </select>
                 </label>
             </form>

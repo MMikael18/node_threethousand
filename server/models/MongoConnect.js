@@ -33,15 +33,26 @@ exports.Connect = function(call){
     })
 }
 
-//module.exports = MongoConnect;
+/* to dev */
 
-//const mongoose = require('mongoose')
-//const Schema = mongoose.Schema
+var fs = require('fs')
+var words = JSON.parse(fs.readFileSync('./server/models/words.json', 'utf8'))
 
-// var WordsSchema   = new Schema({
-//     word: { type: String, index: true, required: true },
-//     translation: [{ lang: String, word: String }],
-//     date: { type: Date, default: Date.now },
-// })
-
-// module.exports = mongoose.model('Word', WordsSchema)
+exports.ResetAll = function(){
+    Mongo.MongoClient.connect(url, function(err, db) {
+        if (err) throw err;
+        db.collection("words").drop(function(err, delOK) {
+          if (err) throw err;
+          if (delOK) console.log("Collection deleted");
+          db.close();
+        });
+    })
+    Mongo.MongoClient.connect(url, function(err, db) {
+        if (err) throw err;        
+        db.collection("words").insertMany(words, function(err, res) {
+            if (err) throw err;
+            console.log("Number of documents inserted: " + res.insertedCount);
+            db.close();
+        });
+    })
+}
